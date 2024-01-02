@@ -1,27 +1,25 @@
-// const form =document.querySelector("form"),
-// statusTxt = form.querySelector(".button-area span");
-// form.onsubmit = (e)=>{
-//   e.preventDefault();
-//   statusTxt.style.color = "#0D6EFD";
-//   statusTxt.style.display="block";
+const form = document.getElementById("myForm");
+    const statusTxt = form.querySelector(".text-center span");
 
-//   let xhr=new XMLHttpsRequest();
-//   xhr.open("POST","message.php",true);
-//   xhr.onload = ()=>{
-//     if(xhr.readyState == 4 && xhr.status == 200){
-//       let respone = xhr.response;
-//       if(response.indexOf("Email and Name field is required") != -1 || response.indexOf("Ender a valid email address") || response.indexOf("Sorry, faild to send your message!") ){
-//         statusTxt.style.color = "red";
-//       }else{
-//         form.reset();
-//         setTimeoute(()=>{
-//           statusTxt.style.display="none";
-//         }, 3000);
-//       }
-//       statusTxt.innerText = respone;
-//     }
-//   }
-//   let firmData = new FormData();
-//   xhr.send();
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        statusTxt.style.color = "#0D6EFD";
+        statusTxt.style.display = "block";
 
-// }
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "process.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let response = xhr.responseText;
+                if (response.indexOf("Your message has been sent") != -1) {
+                    statusTxt.style.color = "green";
+                } else {
+                    statusTxt.style.color = "red";
+                }
+                statusTxt.innerText = response;
+            }
+        };
+
+        let formData = new FormData(form);
+        xhr.send(formData);
+    };

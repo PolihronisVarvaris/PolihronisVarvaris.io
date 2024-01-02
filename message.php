@@ -1,12 +1,13 @@
 <?php
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+$name = $_POST['name'];
+$email = $_POST['email'];
+$subject = $_POST['subject'];
+$message = $_POST['message'];
 
     if(!empty($email) && !empty($message)){
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
             $receiver = "polihronisv@gmail.com";
-            $sumbject = "From: $name <$email>";
+            $subject = "From: $name <$email>";
             $body = "Name: $name\nEmail: $email\n\nMessage: $message";
             $sender = "From: $email";
             if(mail($receiver, $sumbject, $body, $sender)){
@@ -18,4 +19,5 @@
     }else{
         echo "Email and Name field is required";
     }
+    echo "Your message has been sent. Thank you!";
 ?>
